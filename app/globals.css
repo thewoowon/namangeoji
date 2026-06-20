@@ -1,26 +1,107 @@
 @import "tailwindcss";
 
+/*
+ * 나만거지지수 디자인 토큰
+ * spec §14.3 — 색상 의미 체계 / 간격 / 반경
+ * 다크 대시보드 기본. 모바일 퍼스트.
+ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* surfaces */
+  --bg-base: #0a0b0f;
+  --bg-surface: #141620;
+  --bg-elevated: #1c1f2e;
+  --border: #262a3b;
+  --border-strong: #353a52;
+
+  /* text */
+  --text-primary: #f3f4f8;
+  --text-secondary: #a9adc0;
+  --text-muted: #6b7088;
+
+  /* status (안정 → 과열) */
+  --status-stable: #3ba776;
+  --status-watch: #6fb84a;
+  --status-caution: #e0b13a;
+  --status-anxious: #e8843c;
+  --status-overheated: #e6483d;
+
+  /* delta */
+  --delta-up: #ff5a52;
+  --delta-down: #4aa3ff;
+
+  /* confidence */
+  --confidence-high: #3ba776;
+  --confidence-mid: #e0b13a;
+  --confidence-low: #6b7088;
+
+  /* accent */
+  --accent: #ffb020;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-base: var(--bg-base);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-border-base: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-stable: var(--status-stable);
+  --color-watch: var(--status-watch);
+  --color-caution: var(--status-caution);
+  --color-anxious: var(--status-anxious);
+  --color-overheated: var(--status-overheated);
+
+  --color-up: var(--delta-up);
+  --color-down: var(--delta-down);
+
+  --color-conf-high: var(--confidence-high);
+  --color-conf-mid: var(--confidence-mid);
+  --color-conf-low: var(--confidence-low);
+
+  --color-accent: var(--accent);
+
+  --font-sans: var(--font-sans-kr), var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  background: var(--bg-base);
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* numeric display: tabular for scores so they don't jitter */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* hide scrollbars on horizontal strips while keeping scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
