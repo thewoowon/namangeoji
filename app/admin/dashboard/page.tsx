@@ -1,12 +1,12 @@
-import { getToday } from "@/lib/api/client";
-import { getCollectorRuns, COLLECTOR_STATUS_META } from "@/lib/admin-data";
+import { getToday, getCollectorRuns } from "@/lib/api/client";
+import { COLLECTOR_STATUS_META } from "@/lib/admin-data";
 import { LEVEL_META } from "@/lib/levels";
 import { formatTimeKST } from "@/lib/format";
 import { AdminPageHeader, StatCard } from "@/components/admin/admin-page-header";
 
 export default async function AdminDashboardPage() {
   const { composite, topIndices } = await getToday();
-  const runs = getCollectorRuns();
+  const runs = await getCollectorRuns();
   const failed = runs.filter((r) => r.status === "failed");
   const running = runs.filter((r) => r.status === "running");
 

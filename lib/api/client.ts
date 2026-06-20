@@ -16,6 +16,7 @@ import {
 } from "./queries";
 import type { SeriesRange } from "@/lib/data";
 import type { CategoryScore, IndexDetail, TriggerEvent } from "@/lib/types";
+import { getCollectorRuns as getMockCollectorRuns, type CollectorRun } from "@/lib/admin-data";
 
 /**
  * 데이터 접근 레이어.
@@ -111,4 +112,13 @@ export async function getCategories(): Promise<CategoryScore[]> {
 export async function getEvents(): Promise<TriggerEvent[]> {
   if (BASE_URL) return unwrap(await fetchData<TriggerEvent[]>("/api/v1/events"));
   return buildEvents();
+}
+
+/** 관리자 대시보드: 백엔드 연동 시 실제 수집 로그, 아니면 목업 */
+export async function getCollectorRuns(): Promise<CollectorRun[]> {
+  if (BASE_URL) {
+    const rows = unwrap(await fetchData<Omit<CollectorRun, "apiQuotaRemaining">[]>("/api/v1/admin/collector-runs"));
+    return rows.map((r) => ({ ...r, apiQuotaRemaining: null }));
+  }
+  return getMockCollectorRuns();
 }
