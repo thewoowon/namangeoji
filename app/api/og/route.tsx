@@ -43,8 +43,20 @@ async function resolveCard(type: string, slug: string | null): Promise<CardModel
     score: today.composite.score,
     level: today.composite.level,
     summary: today.composite.summary,
-    footnote: "2026.06.20 09:00 기준 · namangeoji.kr",
+    footnote: `${formatStamp(today.composite.updatedAt)} 기준 · namangeoji.kr`,
   };
+}
+
+/** ISO → "2026.06.21 09:00" (KST) */
+function formatStamp(iso: string): string {
+  const d = new Date(iso);
+  const date = new Intl.DateTimeFormat("ko-KR", {
+    year: "numeric", month: "2-digit", day: "2-digit", timeZone: "Asia/Seoul",
+  }).format(d).replace(/\.\s*/g, ".").replace(/\.$/, "");
+  const time = new Intl.DateTimeFormat("ko-KR", {
+    hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Seoul",
+  }).format(d);
+  return `${date} ${time}`;
 }
 
 export async function GET(request: NextRequest) {

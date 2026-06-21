@@ -16,7 +16,10 @@ import type {
  * API 응답(spec §12)과 동일한 형태의 객체를 반환한다.
  * ------------------------------------------------------------------ */
 
-const ANCHOR = "2026-06-20T09:00:00+09:00";
+// 목업 기준 시각을 현재로 둔다(고정 날짜가 화면에 박히지 않도록).
+const ANCHOR = new Date().toISOString();
+// 현재 KST 날짜 (YYYY-MM-DD)
+const TODAY_KST = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(new Date());
 
 /** 결정론적 의사난수 (seed 기반) */
 function rng(seed: number) {
@@ -716,7 +719,7 @@ export function getComposite(): CompositeIndex {
   return {
     code: "NMGR_COMPOSITE_INDEX",
     name: "나만거지지수",
-    date: "2026-06-20",
+    date: TODAY_KST,
     score: finalScore,
     level: scoreToLevel(finalScore),
     delta1d: 9,

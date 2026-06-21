@@ -40,7 +40,7 @@ export function AppHeader() {
         </nav>
 
         <span className="tnum text-[12px] text-text-muted md:hidden">
-          {formatDateKST(SITE.updatedAt).slice(5)}
+          {formatDateKST(new Date().toISOString()).slice(5)}
         </span>
       </div>
     </header>

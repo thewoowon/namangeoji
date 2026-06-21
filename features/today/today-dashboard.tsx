@@ -9,6 +9,7 @@ import { TriggerEventList } from "@/components/dashboard/trigger-event-list";
 import { IndexCard } from "@/components/index-card/index-card";
 import { ShareButton } from "@/components/share/share-button";
 import { DeltaBadge } from "@/components/common/badges";
+import { formatDateTimeKST } from "@/lib/format";
 
 export async function TodayDashboard() {
   const { composite, topIndices: top, risingIndices: rising, fallingIndices: falling, categories, events } =
@@ -83,7 +84,7 @@ export async function TodayDashboard() {
         <div className="flex flex-col justify-center gap-2">
           <InvestmentDisclaimer />
           <p className="px-1 text-[11px] text-text-muted">
-            마지막 업데이트: 2026.06.20 09:00 · 일부 공식 통계는 발표 주기에 따라 지연 반영됩니다 ·
+            마지막 업데이트: {formatDateTimeKST(composite.updatedAt)} · 일부 공식 통계는 발표 주기에 따라 지연 반영됩니다 ·
             시장 데이터는 장마감 기준입니다.{" "}
             <Link href="/methodology" className="underline hover:text-text-secondary">
               방법론 보기
